@@ -255,6 +255,10 @@ const STATIC = {
       // validação própria de rotação nominal por estágio de engrenamento que não
       // reconstruí com confiança suficiente para não gerar dados inconsistentes.
       gear_box_gmf_list: [],
+      // spot_images — lista leve [{image_id, is_favorite}]; o binário (base64)
+      // de cada imagem fica em store separado, buscado sob demanda via
+      // GET /spot/:id/image/:imageId (mesmo formato do backend real).
+      spot_images: [],
     };
     return ok({ ...defaults, ...(override || {}) });
   },
@@ -857,7 +861,12 @@ const PATTERNS = [
     const spotId = seg(m, 1);
     const alarm = getSpotAlarm(tree, Number(spotId) || spotId);
     const lastAlarmed = (alarm === "RED" || alarm === "YELLOW") ? nowMinus(42) : null;
-    return ok({ alarm_status: alarm, spot_status: alarm === "RED" ? "CRITICAL" : alarm === "YELLOW" ? "ALERT" : "NORMAL", last_alarmed_time: lastAlarmed });
+    // spot_images — ConfigStatus/SpotImages/UploadPhotosModal usam ESTE
+    // endpoint (não readspotinfo) como sua fonte de `data`. Override vem do
+    // mesmo store por spotId usado pelos handlers de imagem abaixo.
+    const override = store.getSpot(spotId);
+    const spotImages = (override && override.spot_images) || [];
+    return ok({ alarm_status: alarm, spot_status: alarm === "RED" ? "CRITICAL" : alarm === "YELLOW" ? "ALERT" : "NORMAL", last_alarmed_time: lastAlarmed, spot_images: spotImages });
   }},
   { test: /\/spot\/[^/]+\/machine_info$/, handler: (m) => ok({ spot_id: seg(m, 1), machine_type: "MOTOR", power: 75, rotation_speed: 1470, bearing_model: "6312", fixation_type: "RÍGIDA" }) },
   // /spot/:id/automatic_diagnostic — getAutomaticDiagnostic
@@ -893,6 +902,59 @@ const PATTERNS = [
     return ok(structuredCloneSafe(cards));
   }},
   { test: /\/spot\/[^/]+\/alarmed_periods$/, handler: () => ok([]) },
+
+  // ---- Fotos do ponto (SpotImages / UploadPhotosModal / SpotImagesModal) ----
+  // Lista leve fica em spot_images (dentro do override de readspotinfo, via
+  // store.setSpot). O binário base64 de cada foto fica isolado em uma chave
+  // própria (imgdata_<spotId>_<imageId>) para não inflar o payload de
+  // readspotinfo a cada leitura.
+  // POST /spot/:id/image — insertImagePost({file, is_favorite})
+  { test: /\/spot\/[^/]+\/image$/, handler: (path, body) => {
+    const spotId = seg(path, 1);
+    const spot = store.getSpot(spotId) || {};
+    const currentImages = spot.spot_images || [];
+    const imageId = `img-${spotId}-${Date.now()}-${currentImages.length}`;
+    const isFavorite = !!(body && body.is_favorite);
+    let updatedImages = [...currentImages, { image_id: imageId, is_favorite: isFavorite }];
+    if (isFavorite) {
+      updatedImages = updatedImages.map((img) => ({ ...img, is_favorite: img.image_id === imageId }));
+    }
+    store.setSpot(spotId, { spot_images: updatedImages });
+    store.setSpot(`imgdata_${spotId}_${imageId}`, { data: body && body.file });
+    return ok({ success: true, image_id: imageId });
+  }},
+
+  // PUT /spot/:id/image/favorite — updateFavoriteImage({image_id})
+  // Precisa vir ANTES do padrão genérico .../image/:imageId abaixo, senão
+  // "favorite" seria interpretado como um image_id.
+  { test: /\/spot\/[^/]+\/image\/favorite$/, handler: (path, body) => {
+    const spotId = seg(path, 2);
+    const spot = store.getSpot(spotId) || {};
+    const images = spot.spot_images || [];
+    const favoriteId = body && body.image_id;
+    const updated = images.map((img) => ({ ...img, is_favorite: img.image_id === favoriteId }));
+    store.setSpot(spotId, { spot_images: updated });
+    return ok({ success: true });
+  }},
+
+  // GET /spot/:id/image/:imageId (getSpotImage) e
+  // DELETE /spot/:id/image/:imageId (deleteSpotImage) — mesma URL, método
+  // diferencia a ação (o mock adapter passa o HTTP method como 3º argumento).
+  { test: /\/spot\/[^/]+\/image\/[^/]+$/, handler: (path, body, method) => {
+    const spotId = seg(path, 2);
+    const imageId = seg(path, 1);
+    if (method && method.toLowerCase() === "delete") {
+      const spot = store.getSpot(spotId) || {};
+      const images = (spot.spot_images || []).filter((img) => img.image_id !== imageId);
+      store.setSpot(spotId, { spot_images: images });
+      return ok({ success: true });
+    }
+    const stored = store.getSpot(`imgdata_${spotId}_${imageId}`);
+    // fallback: 1x1 jpeg cinza — cobre o caso raro de reload no meio do fluxo
+    const PLACEHOLDER_IMAGE =
+      "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=";
+    return ok({ image: (stored && stored.data) || PLACEHOLDER_IMAGE });
+  }},
   {
     test: /\/group\/[^/]+\/alarm_history$/,
     handler: (m) => {
@@ -945,14 +1007,14 @@ const PATTERNS = [
 // -----------------------------------------------------------------------------
 // Resolução de rota
 // -----------------------------------------------------------------------------
-export function resolveRoute(path, body) {
+export function resolveRoute(path, body, method) {
   // 1) padrões dinâmicos
   for (const p of PATTERNS) {
-    if (p.test.test(path)) return p.handler(path, body);
+    if (p.test.test(path)) return p.handler(path, body, method);
   }
   // 2) nome do endpoint = último segmento (ou caminho inteiro sem barras)
   const key = lastSegment(path).toLowerCase();
-  if (STATIC[key]) return STATIC[key](body);
+  if (STATIC[key]) return STATIC[key](body, method);
 
   // 3) default seguro — lista vazia (a maioria dos consumidores itera sobre data)
   if (process.env.NODE_ENV !== "production") {
