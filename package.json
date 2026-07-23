@@ -21,6 +21,7 @@
     "chartjs-subtitle": "^0.2.0",
     "deep-email-validator": "^0.1.21",
     "font-awesome": "4.7.0",
+    "jquery": "^3.7.1",
     "material-table": "^1.69.3",
     "plotly.js": "^2.8.3",
     "prop-types": "^15.7.2",
