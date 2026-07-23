@@ -1,0 +1,110 @@
+.registerContainer {
+    margin-block: 50px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-inline: 40px;
+}
+
+.registerContainer> :nth-child(n+2) {
+    width: 400px;
+    max-width: 100%;
+}
+
+.registerTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-block-end: 20px;
+}
+
+.registerTitle h1,
+.registerTitle h5 {
+    margin: 0;
+    text-align: center;
+}
+
+.registerTitle h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: black;
+}
+
+.registerTitle h5 {
+    font-family: 'Inter', sans-serif;
+    color: #777777;
+    font-size: 12px;
+}
+
+.subTitle {
+    font-weight: 400;
+}
+
+.requiredFieldsMessage {
+    font-weight: 500;
+}
+
+.requiredFieldsMessage span {
+    color: var(--red-feedback);
+    font-weight: 600;
+}
+
+.registerInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-block-end: 25px;
+}
+
+.registerButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.registerButtons p {
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0em;
+    color: #777777;
+}
+
+.registerButtons p a {
+    color: var(--blue-default);
+}
+
+.requiredFieldsError {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #777777;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #FFEBEE;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.requiredFieldsError svg,
+.requiredFieldsError span {
+    color: var(--red-feedback);
+}
+
+.loaderComponent {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+}

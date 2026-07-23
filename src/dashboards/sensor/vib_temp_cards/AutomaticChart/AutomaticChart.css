@@ -1,0 +1,48 @@
+.cardLoading {
+    box-shadow: none;
+}
+
+.rowWrap {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.cardWrap {
+    height: 100%;
+    width: 100%;
+    display: flex; 
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    align-items: center;
+}
+
+.autoWhite {
+    padding: auto; 
+    fill: #fff;
+}
+
+.backgroundBlue {
+    color: #fff;
+    background-color: #156284;
+}
+
+.download {
+    height: 25px !important; 
+}
+
+.modalFooter {
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.invisible-chart{
+    display: none;
+}

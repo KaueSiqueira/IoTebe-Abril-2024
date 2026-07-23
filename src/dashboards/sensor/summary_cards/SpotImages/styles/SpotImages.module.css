@@ -1,0 +1,166 @@
+.spotImagesContainer {
+    border: dashed;
+    border-radius: 10px;
+    border-width: thin;
+    padding: 10px;
+    margin: 15px auto;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.spotImagesContainer img {
+    margin: auto;
+    max-width: 100%;
+    max-height: 160px;
+    position: relative;
+}
+
+.withImages {
+    border: none;
+    padding: 0;
+}
+
+.withImages img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+    max-height: 100%;
+    border-radius: 10px;
+}
+
+.addImageButton,
+.maxButton,
+.favButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 10px;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 5px 10px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    color: #fff;
+    background-color: #156284;
+    border: none;
+    border-radius: 5px;
+}
+
+.maxButton,
+.favButton {
+    background-color: rgba(47, 47, 47, 0.8);
+}
+
+.favButton {
+    right: auto;
+    left: 5px;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.addImageButton svg,
+.maxButton svg,
+.favButton svg {
+    font-size: 16px;
+}
+
+.addImageButton span,
+.maxButton span {
+    font-size: 10px;
+    transition: max-width .1s ease;
+    max-width: 0px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.addImageButton:hover span,
+.maxButton:hover span {
+    max-width: 1000px;
+    transition: max-width .6s ease;
+}
+
+.leftArrow,
+.rightArrow {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background-color: rgba(47, 47, 47, 0.8);
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.leftArrow {
+    left: 5px;
+}
+
+.rightArrow {
+    right: 5px;
+}
+
+.leftArrow svg,
+.rightArrow svg {
+    width: 100%;
+    height: 100%;
+}
+
+.favIcon {
+    color: rgba(255, 224, 50, 1);
+}
+
+.itemCircles {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.itemCircles span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: rgba(47, 47, 47, 0.8);
+}
+
+.itemCircles .activeItemCircle {
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
+@media only screen and (min-width: 992px) {
+
+    .withImages .favButton,
+    .withImages .maxButton,
+    .withImages .leftArrow,
+    .withImages .rightArrow,
+    .withImages .itemCircles {
+        opacity: 0;
+        transition: opacity 0.1s ease-in-out;
+    }
+
+    .withImages:hover .favButton,
+    .withImages:hover .maxButton,
+    .withImages:hover .leftArrow,
+    .withImages:hover .rightArrow,
+    .withImages:hover .itemCircles {
+        opacity: 1;
+    }
+}

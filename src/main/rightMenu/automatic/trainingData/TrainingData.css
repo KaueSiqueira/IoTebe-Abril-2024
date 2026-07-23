@@ -1,0 +1,103 @@
+.training {
+    margin: 0 15px 15px 15px;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.training h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.training h1 span {
+    color: #505050;
+    text-align: right;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 200% */
+    letter-spacing: 0.1px;
+}
+
+.training .row {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 25px;
+}
+
+.training h2 {
+    color: #072531;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    /* 150% */
+    letter-spacing: 0.1px;
+    margin-bottom: 15px;
+}
+
+.training h3 {
+    color: #000;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+}
+
+.training h4 {
+    color: #FD0D1B;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    /* 150% */
+    letter-spacing: 0.1px;
+    margin-bottom: 20px;
+}
+
+.inputsDiv {
+    display: grid;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.verify {
+    font-size: 10px !important;
+    align-self: center !important;
+    font-weight: 500 !important;
+}
+
+.verify svg {
+    fill: #1CBF21;
+    margin-right: 5px;
+}
+
+.collectWarning {
+    list-style-type: none;
+    max-height: 140px;
+    overflow-y: auto;
+    font-family: Inter;
+}
+
+.collectWarning li {
+    margin-left: 9px;
+}
+
+.dateError {
+    color: #FD0D1B !important;
+}

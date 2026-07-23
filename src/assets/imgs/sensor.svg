@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+  width="203.002"
+  height="203.001"
+  viewBox="0 0 203.002 203.001">
+  <g id="iot-platform"
+    transform="translate(-11 -4.749)">
+    <path id="Caminho_9786"
+      data-name="Caminho 9786"
+      d="M206.25,130.134H178.571V102.455H164.732v62.277H54.018V54.018h62.277V40.179H88.616V12.5H74.777V40.179H54.018A13.853,13.853,0,0,0,40.179,54.018V74.777H12.5V88.616H40.179v41.518H12.5v13.839H40.179v20.759a13.853,13.853,0,0,0,13.839,13.839H74.777V206.25H88.616V178.571h41.518V206.25h13.839V178.571h20.759a13.86,13.86,0,0,0,13.839-13.839V143.973H206.25Z"
+      transform="translate(0 0)"
+      stroke="#000"
+      stroke-width="3" />
+    <path id="Caminho_9787"
+      data-name="Caminho 9787"
+      d="M131.25,131.25H68.75V68.75h62.5Zm-50-12.5h37.5V81.25H81.25Z"
+      transform="translate(8.882 9.868)"
+      stroke="#000"
+      stroke-width="3" />
+    <path id="Caminho_9788"
+      data-name="Caminho 9788"
+      d="M193.75,81.25h-12.5a62.575,62.575,0,0,0-62.5-62.5V6.25a75.081,75.081,0,0,1,75,75Z"
+      transform="translate(18.75)"
+      stroke="#000"
+      stroke-width="3" />
+    <path id="Caminho_9789"
+      data-name="Caminho 9789"
+      d="M162.5,81.25H150A31.288,31.288,0,0,0,118.75,50V37.5A43.8,43.8,0,0,1,162.5,81.25Z"
+      transform="translate(14.489 4.261)"
+      stroke="#000"
+      stroke-width="3" />
+  </g>
+</svg>

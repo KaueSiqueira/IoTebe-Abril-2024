@@ -1,0 +1,334 @@
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+}
+
+.inputLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #777777;
+
+    height: 18px;
+}
+
+.labelText,
+.inputSubLabel,
+.inputInfo,
+.requirementsTitle,
+.inputRequirements,
+.errorMessage {
+    cursor: default;
+}
+
+.labelText span {
+    color: var(--red-feedback);
+}
+
+.inputLabelFuncs {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.inputAction {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.52px;
+    text-align: left;
+    color: var(--blue-default);
+    cursor: pointer;
+}
+
+.inputAction:hover {
+    text-decoration: underline;
+}
+
+.saveButton {
+    cursor: pointer;
+}
+
+.saveButton svg {
+    color: var(--blue-default);
+    font-size: 20px;
+}
+
+.unableToSave {
+    cursor: not-allowed;
+}
+
+.unableToSave svg {
+    color: #777777;
+}
+
+.inputSubLabel {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #777777;
+}
+
+.inputDiv {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    position: relative;
+}
+
+.customInput {
+    width: 100%;
+    border: 1px solid var(--blue-default);
+    border-radius: 5px;
+    padding: 16px;
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #777777;
+}
+
+.customInput:disabled {
+    background-color: #eaeaea !important;
+    border: 1px solid #707070 !important;
+}
+
+.customInput::placeholder {
+    color: #CCCCCC !important;
+}
+
+.customInput[type="number"] {
+    appearance: textfield !important;
+}
+
+.customInput[readonly] {
+    cursor: default;
+}
+
+.customInput:focus {
+    outline-color: var(--blue-default);
+}
+
+.passwordInput {
+    padding-right: 56px;
+}
+
+.passwordVisibility {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+}
+
+.passwordVisibility svg {
+    width: 30px;
+    height: 23px;
+    color: var(--blue-default);
+}
+
+.inputInfo,
+.errorMessage {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.inputInfo {
+    color: #777777;
+}
+
+.requirementsTitle {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #777777;
+}
+
+.inputRequirements {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+    overflow: auto;
+    height: 55px;
+    flex-wrap: wrap;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #777777;
+}
+
+.circleLabel {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: #CCCCCC;
+}
+
+.validRequirement .circleLabel {
+    background-color: #1CBF21 !important;
+}
+
+.validRequirement {
+    color: #072531 !important;
+}
+
+.invalidRequirement {
+    color: var(--red-feedback) !important;
+}
+
+.invalidRequirement .circleLabel {
+    background-color: var(--red-feedback) !important;
+}
+
+.errorMessage {
+    color: var(--red-feedback);
+}
+
+.invalidInput .customInput {
+    border-color: var(--red-feedback) !important;
+}
+
+.invalidInput .customInput:focus {
+    outline-color: var(--red-feedback);
+}
+
+.invalidInput .inputInfo {
+    color: var(--red-feedback) !important;
+}
+
+.invalidInput .passwordVisibility svg {
+    color: var(--red-feedback) !important;
+}
+
+.telInput {
+    padding-left: 68px;
+}
+
+.countryList {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.disable {
+    cursor: default;
+    left: 23px;
+}
+
+.countryFlag {
+    display: flex;
+    align-items: center;
+    height: 17px;
+}
+
+.countryFlag img {
+    display: block;
+    height: 100%;
+}
+
+.countryFlag svg {
+    color: #565656;
+    width: 20px;
+    height: 20px;
+}
+
+.countrySelector {
+    display: none;
+    position: absolute;
+    top: 100%;
+    overflow: auto;
+    flex-direction: column;
+    width: 100%;
+    background-color: #FFFFFF;
+    z-index: 1;
+    border: 1px solid #777777;
+    max-height: 253px;
+}
+
+.openSelector {
+    display: flex;
+}
+
+.countryOption {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    cursor: pointer;
+    padding: 16px;
+}
+
+.countryOption:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.countryOption img {
+    display: block;
+    height: 17px;
+}
+
+.countryOption p {
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.countryLabel {
+    color: #000000;
+}
+
+.countryCode {
+    color: #CCCCCC;
+}
+
+.copyButton:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.copyIcon {
+    color: var(--blue-default);
+}
+
+.hideValue {
+    -webkit-text-security: disc;
+}

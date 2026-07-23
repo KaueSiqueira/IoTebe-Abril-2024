@@ -1,0 +1,69 @@
+.equipment-health {
+    margin: 15px 15px 15px 15px;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 50px;
+
+    span {
+        font-weight: 700;
+        display: contents;
+    }
+
+    a {
+        color: #156284;
+        text-decoration: underline;
+    }
+}
+
+.status-container {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    gap: 15px;
+
+    * {
+        color: #072531;
+        font-weight: 500;
+        font-family: 'Inter',
+            sans-serif;
+        font-size: 12px;
+    }
+}
+
+.status-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    svg {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.status-good {
+    svg {
+        fill: #1CBF21;
+    }
+}
+
+.status-alert {
+    svg {
+        fill: #FFE032;
+    }
+}
+
+.status-critical {
+    svg {
+        fill: #FD0D1B;
+    }
+}
+
+.alert-critical-message {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

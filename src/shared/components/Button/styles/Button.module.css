@@ -1,0 +1,63 @@
+.customButton {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    padding-block: 14px;
+    padding-inline: 15px;
+    border: 1px solid;
+    border-radius: 5px;
+    transition: all 0.1s ease-in-out;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.full {
+    width: 100%;
+}
+
+.sm {
+    width: fit-content;
+    padding-block: 5px;
+    font-size: 14px;
+}
+
+.md {
+    width: fit-content;
+    padding-block: 8px;
+}
+
+.lg {
+    width: fit-content;
+    font-size: 16px;
+}
+
+.customButton:hover {
+    text-decoration: none !important;
+    filter: brightness(115%);
+}
+
+.customButton svg {
+    height: 20px;
+    width: 20px;
+}
+
+.filledButton {
+    background-color: var(--blue-default);
+    color: #fff !important;
+    border-color: var(--blue-default);
+}
+
+.outlineButton {
+    background-color: #fff;
+    color: var(--blue-default) !important;
+    border-color: var(--blue-default);
+}
+
+.outlineButton:hover {
+    background-color: var(--blue-default);
+    color: #fff !important;
+}

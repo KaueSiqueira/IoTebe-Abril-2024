@@ -1,0 +1,12 @@
+import { AxiosInstance } from "./AxiosInstance";
+
+export async function readRmsTempAnnotation(spotId, dateRange) {
+  const api = new AxiosInstance("readrmstempannotation");
+  const data = {
+    spot_id: spotId,
+    start_date: Math.floor(dateRange.startDate / 1000),
+    end_date: Math.floor(dateRange.endDate / 1000),
+  };
+
+  return api.axiosPut(data);
+}

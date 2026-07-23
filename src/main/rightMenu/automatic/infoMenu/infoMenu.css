@@ -1,0 +1,114 @@
+.infoMenu h1 {
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 25px;
+}
+
+.infoMenu h2 {
+    color: #072531;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; 
+}
+
+.infoMenu h2 a{
+    color: #1D6D8B !important;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    text-decoration-line: underline !important;
+    cursor: pointer;
+}
+
+.infoMenu h3 {
+    color: #505050;
+    text-align: center;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.infoMenu p {
+    color: #072531;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    margin-bottom: 25px;
+}
+
+.infoMenu {
+    margin: 20px;
+    overflow-y: auto;
+}
+
+.equipmentWrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.equipmentWrap .equipment {
+    margin-top: 10px;
+    width: 30%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #F5F5F5;
+    background: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.warningWrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.warningWrap .firstTwo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.firstTwo .warning{
+    width: 48% !important;
+}
+
+.warningWrap .warning {
+    margin-top: 10px;
+    width: 30%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #F5F5F5;
+    background: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.finalMargin {
+    margin-bottom: 50px;
+}

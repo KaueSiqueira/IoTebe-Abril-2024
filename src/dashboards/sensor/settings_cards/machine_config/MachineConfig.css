@@ -1,0 +1,21 @@
+#gmf-table {
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-bottom: 30px;
+}
+
+.machineSideMenu {
+    margin: 15px;
+}
+
+.machineSideMenu h1{
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px
+}
+
+.machineSideMenu .sideInput{
+    width: inherit;
+}

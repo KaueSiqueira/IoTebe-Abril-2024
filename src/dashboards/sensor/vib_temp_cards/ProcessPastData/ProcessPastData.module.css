@@ -1,0 +1,66 @@
+.processPastData {
+    max-height: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: max-height 2s ease-in-out;
+    overflow: hidden;
+}
+
+.active {
+    max-height: 500px;
+}
+
+.processPastDataButton {
+    font-size: 12px;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 3px 10px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    color: #fff;
+    background-color: #156284;
+    border: none;
+    border-radius: 5px;
+    -webkit-user-select: none;
+    user-select: none;
+    min-width: fit-content;
+    margin-block: 5px;
+}
+
+.loading {
+    cursor: wait !important;
+}
+
+.progressBar {
+    width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: width .5s ease-in-out;
+    overflow: hidden;
+}
+
+.activeProgress {
+    width: 100% !important;
+}
+
+.progress {
+    width: 100%;
+}
+
+.percentage {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    width: fit-content;
+}
+
+@media only screen and (max-width: 991px) {
+    .processPastData {
+        gap: 5px;
+    }
+}

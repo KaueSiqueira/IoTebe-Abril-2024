@@ -1,0 +1,39 @@
+.confirmContainer {
+    margin-block: 50px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding-inline: 40px;
+}
+
+.confirmContainer svg {
+    font-size: 65px;
+}
+
+.valid {
+    color: #1CBF21;
+}
+
+.invalid {
+    color: var(--red-feedback);
+}
+
+.confirmContainer h1,
+.confirmContainer h3 {
+    margin: 0;
+    text-align: center;
+}
+
+.confirmContainer h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 28px;
+    color: black;
+}
+
+.confirmContainer h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+}

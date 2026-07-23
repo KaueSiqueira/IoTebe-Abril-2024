@@ -1,0 +1,5 @@
+input:disabled,
+select:disabled {
+    background-color: #EFEFEF !important;
+    border-color: #777 !important;
+}

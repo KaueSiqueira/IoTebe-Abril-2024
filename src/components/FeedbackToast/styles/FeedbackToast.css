@@ -1,0 +1,31 @@
+:root {
+    --toastify-color-success: #4CAF50 !important;
+    --toastify-color-error: #F44336 !important;
+    --toastify-toast-width: max-content !important;
+    --toastify-font-family: 'roboto' !important;
+}
+
+.Toastify__toast {
+    max-width: 400px !important;
+}
+
+.Toastify__toast-body {
+    padding-inline-end: 15px !important;
+    font-weight: 500 !important;
+}
+
+.Toastify__toast-icon {
+    margin-inline-end: 15px !important;
+}
+
+
+@media (max-width: 480px) {
+    :root {
+        --toastify-toast-width: auto !important;
+    }
+
+    .Toastify__toast {
+        max-width: none !important;
+    }
+
+}

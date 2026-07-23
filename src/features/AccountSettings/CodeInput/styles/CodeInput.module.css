@@ -1,0 +1,103 @@
+.verifyContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.verifyTitle,
+.verifySubTitle {
+    margin: 0;
+}
+
+.verifyTitle {
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22.5px;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+.verifySubTitle {
+    display: flex;
+    justify-content: center;
+}
+
+.verifySubTitle h5 {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.52px;
+    text-align: left;
+    color: #777777;
+}
+
+.verifySubTitle h4 {
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #777777;
+    max-width: 420px;
+}
+
+.phoneNumber {
+    font-weight: 700;
+}
+
+.linkAction {
+    color: var(--blue-default);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.linkAction:hover {
+    filter: brightness(110%);
+}
+
+.verifyBody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.codeInputs {
+    display: flex;
+    gap: 10px;
+}
+
+.codeInputs input {
+    max-width: 100px;
+    height: 60px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 0;
+
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+    letter-spacing: 0em;
+    color: #707070;
+}
+
+.verifyFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.codeError {
+    font-family: Inter !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 15px !important;
+    letter-spacing: 0em !important;
+    text-align: left !important;
+    color: var(--red-feedback) !important;
+}

@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.maintenance {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+}
+
+.maintenance-container {
+  height: 90%;
+  margin: auto;
+  align-items: center;
+  vertical-align: middle;
+  display: flex;
+  justify-content: space-between;
+}
+
+.image-container {
+  width: 100%;
+}
+
+img {
+  width: 100%;
+}
+
+.text-container {
+  font-family: "Montserrat", sans-serif;
+  width: 60%;
+  text-align: left;
+  margin-right: 3%;
+  align-self: center;
+  line-height: 1;
+}
+
+#title {
+  font-size: 2.188rem;
+  font-weight: 500;
+}
+
+#second_title {
+  padding-top: 15px;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+span {
+  font-size: 1.25rem;
+}
+
+#text {
+  padding-top: 47px;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.logo {
+  margin-top: 8%;
+  margin-left: 28%;
+  position: absolute;
+  width: 8%;
+}
+
+#iot {
+  color: #67c6ba;
+}
+
+#ebe {
+  color: #1d6d8b;
+}
+
+/* ========== RESPONSIVITY ========== */
+
+@media screen and (max-width: 830px) {
+  .image-container {
+    margin-top: -10px;
+    display: grid;
+    grid-template-columns: auto;
+  }
+
+  .maintenance-container {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+  }
+
+  #title {
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+
+  #second_title {
+    padding-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  span {
+    font-size: 0.9rem;
+  }
+
+  #text {
+    padding-top: 35px;
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  .logo {
+    margin-top: 5%;
+    margin-left: 55%;
+    position: absolute;
+    width: 20%;
+  }
+}

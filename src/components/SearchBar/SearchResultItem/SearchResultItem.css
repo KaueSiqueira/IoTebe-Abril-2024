@@ -1,0 +1,124 @@
+.searchResultItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-inline: 15px;
+    padding-block: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: 0.1s background-color ease-in-out;
+}
+
+.mobileMode {
+    padding-inline-start: 8px;
+}
+
+.mobileMode.noResultItems {
+    flex-direction: column;
+}
+
+.searchResultItem:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+
+.noResultItems:hover {
+    cursor: default;
+    background-color: transparent;
+}
+
+.resultItemIcon {
+    height: 36px;
+    width: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    border-radius: 5px;
+    background-color: #156284;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobileMode.noResultItems .resultItemIcon {
+    height: 38px;
+    width: 38px;
+}
+
+.searchResultItem.noResultItems .resultItemIcon {
+    background-color: #cccccc;
+}
+
+.resultItemIcon svg {
+    height: 24px;
+    width: 24px;
+    color: #fff;
+}
+
+.mobileMode.noResultItems .resultItemIcon svg {
+    height: 30px;
+    width: 30px;
+}
+
+.searchResultItem p {
+    font-size: 15px;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    color: #072531;
+}
+
+.searchResultItem .resultItemText {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    overflow: hidden;
+    height: 40px;
+}
+
+.searchResultItem .resultItemLoc {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    line-height: 19px;
+}
+
+.searchResultItem .resultItemPath {
+    font-size: 13px;
+    color: #808080;
+    font-weight: 400;
+}
+
+.mobileMode.noResultItems p {
+    text-align: center;
+    white-space: wrap;
+}
+
+.searchResultItem span {
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    color: #808080;
+    font-size: 15px;
+}
+
+.searchResultItem p span {
+    font-weight: 700;
+    color: #072531;
+    font-size: 14px;
+}
+
+.slidingText {
+    display: none !important;
+}
+
+.searchResultItem:hover .slidingText {
+    display: flex !important;
+    position: absolute !important;
+}
+
+.searchResultItem:hover .fixedText {
+    color: transparent;
+}

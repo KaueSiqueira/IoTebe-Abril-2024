@@ -1,0 +1,222 @@
+.hidden {
+    display: none !important;
+}
+
+.automaticWrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.automaticHeader {
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.automaticHeader h1 {
+    font-size: 16px;
+    margin-bottom: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.automaticHeader .row {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 25px;
+}
+
+.automaticHeader p {
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+    width: 24%;
+    color: #072531;
+    text-align: center;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 15px;
+    position: relative;
+}
+
+.automaticHeader .circle {
+    background-color: #D9D9D9;
+    border-radius: 100px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #072531;
+    margin-bottom: 5px;
+    transition: all ease-in-out 0.4s;
+}
+
+.automaticHeader .selected {
+    background-color: #156284;
+    color: #FFFFFF;
+}
+
+.automaticHeader hr {
+    width: inherit;
+    margin: 16px 2px 0px;
+    border-top: 3px solid rgba(0, 0, 0, 0.1);
+    transition: all ease-in-out 0.2s;
+    margin-inline: 12px;
+}
+
+.startConfigButton {
+    z-index: 2;
+    bottom: 0;
+    position: fixed;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    background-color: #FFFFFF;
+}
+
+.startConfigButton .wrapButton {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding-inline: 10%;
+}
+
+.foward {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    padding: 5px 10px;
+    border: 1px solid #156284;
+    background-color: #156284;
+    border-radius: 100px;
+    transition: .3s;
+    margin: 10px auto;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.startConfigButton .back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: #156284;
+    padding: 5px 10px;
+    border: 1px solid #156284;
+    background-color: #fff;
+    border-radius: 100px;
+    transition: .3s;
+    margin: 10px auto;
+}
+
+.startConfigButton .twoButtons {
+    margin: 4px 3px;
+    width: 70%;
+}
+
+.startConfigButton svg {
+    width: 16px;
+    margin-right: 5px;
+}
+
+.automaticHeader svg {
+    font-size: 1.3rem;
+}
+
+.lock {
+    cursor: not-allowed !important;
+    background-color: #C1C1C1 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #C1C1C1 !important;
+}
+
+.row p span {
+    top: 93%;
+    position: absolute;
+}
+
+.congratulations {
+    margin: 0px 15px 15px 15px;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 50px;
+    gap: 10px;
+
+    p {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        color: #072531;
+    }
+
+}
+
+.toggle-automatic-diagnostic {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    .foward {
+        padding: 10px 14px;
+        gap: 10px;
+    }
+
+    span {
+        font-weight: 700;
+        position: relative !important;
+        top: 0 !important;
+    }
+}
+
+button.auto-enabled {
+    background-color: #fff;
+    color: #156284;
+}
+
+button.auto-enabled:hover {
+    background-color: #156284;
+    color: #fff;
+}
+
+.auto-message {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    margin-inline: 15px;
+    margin-block-start: 10px;
+    margin-block-end: 25px;
+}
+
+.final-image{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}

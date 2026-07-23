@@ -1,0 +1,133 @@
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.loginLogoHeader {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.52px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.loginLogoHeaderMargins {
+  margin-bottom: 15px;
+}
+
+.inputWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.loginLogoHeaderTitle {
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: left;
+}
+
+.loginSocial {
+  width: 100%;
+}
+
+.loginSocial p {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14.52px;
+  text-align: center;
+  color: var(--blue-default);
+}
+
+.loginSocialButtons {
+  display: flex;
+  margin-top: 20px;
+  width: 100%;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.groupButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.loginError {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #FFEBEE;
+  color: #777777;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 17.58px;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.loginError svg {
+  width: 20px;
+  height: 20px;
+  color: var(--red-feedback);
+}
+
+.roundedButton {
+  border-radius: 100% !important;
+  display: flex;
+  padding: 14px;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+
+.roundedButton:hover {
+  color: #fff
+}
+
+.roundedButton svg,
+.roundedButton img {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 1200px) {
+  .loginSocialButtons {
+    gap: 4px;
+  }
+
+  .groupButtons {
+    gap: 4px;
+  }
+
+  .roundedButton svg,
+  .roundedButton img {
+    width: 24px;
+    height: 24px;
+  }
+}
