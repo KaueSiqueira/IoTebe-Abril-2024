@@ -3,14 +3,10 @@ import { DiagnosticContext, WhichRenderContext } from "../../contexts";
 import { updateDiagnosticCard, readAssetsTree } from "../../apis";
 import { find, getTreeFromFlatData } from "react-sortable-tree";
 import FeedbackToast from "../../components/FeedbackToast/FeedbackToast";
+import { blockExternalLink } from "../../utilities";
 
 function clickSupport() {
-  const phoneNumber = "551931321442";
-  const message = "Olá, gostaria de ajuda";
-  const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-    message
-  )}`;
-  window.open(url, "_blank");
+  blockExternalLink();
 }
 
 const RECCOMENDATION = {

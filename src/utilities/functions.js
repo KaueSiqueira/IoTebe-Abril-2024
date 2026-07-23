@@ -1,5 +1,13 @@
 import { walk, find } from "react-sortable-tree";
 import { Auth } from "aws-amplify";
+import FeedbackToast from "../components/FeedbackToast/FeedbackToast";
+
+// modo demonstração — nenhum link deve levar para fora do IoTebe (suporte
+// via WhatsApp, documentação de API, redes sociais, site institucional)
+export function blockExternalLink(e, message = "Link indisponível no modo demonstração.") {
+  e?.preventDefault?.();
+  FeedbackToast.info(message);
+}
 
 export function formatUnixTimestamp(UNIX_timestamp) {
   const a = new Date(UNIX_timestamp * 1000);

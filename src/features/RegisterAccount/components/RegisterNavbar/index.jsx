@@ -3,6 +3,7 @@ import styles from "./styles/RegisterNavbar.module.css";
 import logo from "../../../../assets/imgs/logo_iotebe.svg";
 import { SupportAgentRounded } from "@mui/icons-material";
 import Button from "../../../../shared/components/Button";
+import { blockExternalLink } from "../../../../utilities";
 
 const RegisterNavbar = () => {
   return (
@@ -16,15 +17,7 @@ const RegisterNavbar = () => {
         ></img>
       </a>
       <div className={styles.support}>
-        <Button
-          outline
-          onClick={() =>
-            window.open(
-              "https://wa.me/551931321442?text=Olá, gostaria de ajuda",
-              "_blank"
-            )
-          }
-        >
+        <Button outline onClick={blockExternalLink}>
           <SupportAgentRounded />
         </Button>
       </div>

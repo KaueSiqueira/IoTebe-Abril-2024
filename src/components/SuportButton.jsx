@@ -1,14 +1,11 @@
 import React from "react";
 import { ContactSupport } from "@mui/icons-material";
+import FeedbackToast from "./FeedbackToast/FeedbackToast";
 
 function SuportButton(props) {
   function handleClick() {
-    const phoneNumber = props.phoneNumber;
-    const message = props.message;
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(url, "_blank");
+    // modo demonstração — não expõe canais de suporte reais (WhatsApp)
+    FeedbackToast.info("Suporte indisponível no modo demonstração.");
   }
 
   return (

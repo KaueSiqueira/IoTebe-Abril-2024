@@ -2,6 +2,7 @@ import React from "react";
 import "./infoMenu.css"
 import { EletricMotor, CentrifugalPump, ExhaustFan, SteamTurbine, Reducer, Generator, Rotors } from "../../../../assets/customIcons/automaticDiagnostic";
 import { AerodynamicFailure, Bearing, Cavitation, Clearance, ElectricalFault, Gear, HydrodynamicFailure, Lubrificant, Misalignment, SlidingBearingInstability, Unbalanced } from "../../../../assets/customIcons";
+import { blockExternalLink } from "../../../../utilities";
 
 export default function InfoMenu() {
 
@@ -89,7 +90,7 @@ export default function InfoMenu() {
           <h3>Folga</h3>
         </div>
       </div>
-      <h2 className="finalMargin">Caso o tipo de máquina ou defeito não esteja listado acima, entre em contato com nosso <a onClick={() => window.open("https://wa.me/551931321442?text=Olá, gostaria de ajuda", "_blank")}>suporte técnico</a>.</h2>
+      <h2 className="finalMargin">Caso o tipo de máquina ou defeito não esteja listado acima, entre em contato com nosso <a href="#" onClick={blockExternalLink}>suporte técnico</a>.</h2>
     </div>
   );
 }

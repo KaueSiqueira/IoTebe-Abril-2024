@@ -26,7 +26,8 @@ import {
   haveChanges,
   strToNumFirmwareVersion,
   concatClassName,
-  formatErrorList
+  formatErrorList,
+  blockExternalLink
 } from "./functions";
 
 export {
@@ -57,5 +58,6 @@ export {
   haveChanges,
   strToNumFirmwareVersion,
   concatClassName,
-  formatErrorList
+  formatErrorList,
+  blockExternalLink
 };

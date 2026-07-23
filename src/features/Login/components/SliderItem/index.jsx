@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./styles/SliderItem.module.css";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { concatClassName } from "../../../../utilities";
+import { concatClassName, blockExternalLink } from "../../../../utilities";
 
 const SliderItem = ({ title, subtitle, image, link, className }) => {
   return (
@@ -12,10 +12,9 @@ const SliderItem = ({ title, subtitle, image, link, className }) => {
         <div className={styles.sliderItemSubTitle}>{subtitle}</div>
         {link && (
           <a
-            href={link}
+            href="#"
             className={styles.sliderLink}
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={blockExternalLink}
           >
             Saiba mais
             <OpenInNewIcon />

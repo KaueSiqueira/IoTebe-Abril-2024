@@ -41,6 +41,7 @@ import { Visibility, VisibilityOff, FileCopy } from "@mui/icons-material";
 import { WhichRenderContext } from "../contexts";
 import { ProtectedFeature } from "../components/ProtectedFeature/ProtectedFeature";
 import FeedbackToast from "../components/FeedbackToast/FeedbackToast";
+import { blockExternalLink } from "../utilities";
 
 
 const normalizePhone = (value) => {
@@ -381,7 +382,7 @@ export default class UserConfig extends Component {
                     </Button>
                   </div>
                 )}
-                <a className="link-api" href="https://tebe.stoplight.io/docs/iotebe-api/0cc18a8fedfd0-serverless-api" target="_blank" style={{ color: "rgb(21, 98, 132)", backgroundColor: "white", }}>
+                <a className="link-api" href="#" onClick={blockExternalLink} style={{ color: "rgb(21, 98, 132)", backgroundColor: "white", }}>
                   <button className="button-api">
                       <Link style={{color: "#156284"}} />
                       Documentação da API
