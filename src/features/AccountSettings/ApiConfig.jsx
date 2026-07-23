@@ -5,6 +5,7 @@ import Input from "../../shared/components/Input";
 import Button from "../../shared/components/Button";
 import { InfoOutlined, KeyRounded, LaunchRounded } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
+import FeedbackToast from "../../components/FeedbackToast/FeedbackToast";
 
 const ApiConfig = ({ apiKeyInfo, getApiKey, generateApiKey }) => {
   useEffect(() => {
@@ -34,9 +35,12 @@ const ApiConfig = ({ apiKeyInfo, getApiKey, generateApiKey }) => {
       <div className={`${styles.configSection} ${styles.apiSection}`}>
         <h1 className={styles.contentTitle}>Documentação</h1>
         <a
-          href="https://tebe.stoplight.io/docs/iotebe-api/0cc18a8fedfd0-serverless-api"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            // modo demonstração — não expõe a documentação real da API
+            FeedbackToast.info("Documentação indisponível no modo demonstração.");
+          }}
           className={styles.apiLink}
         >
           <LaunchRounded />
@@ -75,9 +79,12 @@ const ApiConfig = ({ apiKeyInfo, getApiKey, generateApiKey }) => {
                 <span>
                   Contate o{" "}
                   <a
-                    href="https://wa.me/551931321442?text=Olá, gostaria de ajuda"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // modo demonstração — não expõe canais de suporte reais (WhatsApp)
+                      FeedbackToast.info("Suporte indisponível no modo demonstração.");
+                    }}
                   >
                     suporte técnico
                   </a>{" "}

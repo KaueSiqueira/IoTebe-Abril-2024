@@ -5,6 +5,7 @@ import "./EquipmentHealth.css";
 import { CheckCircle, WarningRounded, ErrorRounded } from "@mui/icons-material";
 import RadioGroup from "../../../../components/RadioGroup/RadioGroup";
 import RadioInput from "../../../../components/RadioGroup/RadioInput/RadioInput";
+import { blockExternalLink } from "../../../../utilities";
 
 export default function EquipmentHealth({ page, setVerifyFunction }) {
   const {
@@ -78,11 +79,7 @@ export default function EquipmentHealth({ page, setVerifyFunction }) {
               <p>
                 Caso não tenha certeza se a máquina está em boas condições ou
                 não, <span>utilize as opções recomendadas</span> e contate o{" "}
-                <a
-                  href="https://wa.me/551931321442?text=Olá, gostaria de ajuda"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="#" onClick={blockExternalLink}>
                   suporte técnico
                 </a>{" "}
                 para solicitar uma análise.

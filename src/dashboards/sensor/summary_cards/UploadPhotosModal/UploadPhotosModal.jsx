@@ -7,6 +7,7 @@ import {
 } from "@mui/icons-material";
 import styles from "./styles/UploadPhotosModal.module.css";
 import useUploadPhotosModal from "./hooks/useUploadPhotosModal";
+import { blockExternalLink } from "../../../../utilities";
 
 const Ximage = () => (
   <svg
@@ -338,9 +339,8 @@ function UploadPhotosModal({
                       textDecorationLine: "underline",
                       color: "#1D6D8B",
                     }}
-                    href="https://wa.me/551931321442?text=Olá, gostaria de ajuda"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="#"
+                    onClick={blockExternalLink}
                   >
                     Suporte
                   </a>

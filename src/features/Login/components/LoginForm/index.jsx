@@ -14,7 +14,7 @@ import {
   SupportAgentRounded,
   YouTube,
 } from "@mui/icons-material";
-import { concatClassName } from "../../../../utilities";
+import { concatClassName, blockExternalLink } from "../../../../utilities";
 
 function LoginForm({ isLoading, history }) {
   const {
@@ -81,11 +81,7 @@ function LoginForm({ isLoading, history }) {
 
         <div className={styles.actionButtons}>
           <Button onClick={handleSubmit(handleSignIn)}>LOGIN</Button>
-          <Button
-            outline
-            href={"https://wa.me/551931321442?text=Olá, gostaria de ajuda"}
-            target="_blank"
-          >
+          <Button outline href="#" onClick={blockExternalLink}>
             <SupportAgentRounded /> SUPORTE
           </Button>
         </div>
@@ -97,22 +93,22 @@ function LoginForm({ isLoading, history }) {
             <div className={styles.groupButtons}>
               <Button
                 className={styles.roundedButton}
-                href="https://www.instagram.com/tebesensor/"
-                target="_blank"
+                href="#"
+                onClick={blockExternalLink}
               >
                 <Instagram />
               </Button>
               <Button
                 className={styles.roundedButton}
-                href="https://www.facebook.com/tebesensor"
-                target="_blank"
+                href="#"
+                onClick={blockExternalLink}
               >
                 <FacebookRounded />
               </Button>
               <Button
                 className={styles.roundedButton}
-                href="https://open.spotify.com/show/1Hrb3QMmWIuW2e8JIj0nBi?si=d05861c8cf64416d"
-                target="_blank"
+                href="#"
+                onClick={blockExternalLink}
               >
                 <img src={spotify} alt="" />
               </Button>
@@ -121,22 +117,22 @@ function LoginForm({ isLoading, history }) {
             <div className={styles.groupButtons}>
               <Button
                 className={styles.roundedButton}
-                href="https://br.linkedin.com/company/tebe-sensores"
-                target="_blank"
+                href="#"
+                onClick={blockExternalLink}
               >
                 <LinkedIn />
               </Button>
               <Button
                 className={styles.roundedButton}
-                href="https://www.youtube.com/channel/UCk6m6oKujmvrWUYgBeEIQNQ"
-                target="_blank"
+                href="#"
+                onClick={blockExternalLink}
               >
                 <YouTube />
               </Button>
               <Button
                 className={styles.roundedButton}
-                href="https://www.tebesensor.com/"
-                target="_blank"
+                href="#"
+                onClick={blockExternalLink}
               >
                 <LanguageRounded />
               </Button>
