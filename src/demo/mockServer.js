@@ -58,7 +58,7 @@ function demoAdapter(config) {
     const latency = MIN_LATENCY + Math.random() * (MAX_LATENCY - MIN_LATENCY);
     setTimeout(() => {
       let data;
-      try { data = resolveRoute(path, body); }
+      try { data = resolveRoute(path, body, config.method); }
       catch (err) {
         console.warn("[IoTebe demo] erro no handler de mock para", path, err);
         data = [];
