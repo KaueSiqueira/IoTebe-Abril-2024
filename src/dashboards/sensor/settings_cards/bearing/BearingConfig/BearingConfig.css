@@ -1,0 +1,15 @@
+.bearingSideMenu {
+    margin: 15px;
+}
+
+.bearingSideMenu h1{
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px
+}
+
+.bearingSideMenu .sideInput{
+    width: inherit;
+}

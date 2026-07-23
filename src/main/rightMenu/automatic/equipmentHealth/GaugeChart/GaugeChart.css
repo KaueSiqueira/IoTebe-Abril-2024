@@ -1,0 +1,14 @@
+.gauge-chart-container {
+    width: 100%;
+}
+
+.gauge-component {
+    width: 100%;
+}
+
+.gauge-chart-title {
+    color: #072531;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}

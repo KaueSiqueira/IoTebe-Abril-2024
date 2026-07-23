@@ -1,0 +1,49 @@
+.loginContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    min-height: 100vh;
+    max-height: 100vh;
+    padding-inline: 80px;
+    padding-block: 50px;
+}
+
+.loginContainerCollumn {
+    display: flex;
+    flex-direction: column;
+    width: 54%;
+    max-height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.formColumn {
+    width: 46%;
+}
+
+.loginLogo {
+    margin-bottom: 50px;
+    max-width: 250px;
+    max-height: 70px;
+}
+
+.loginLogo img {
+    display: block;
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .sliderColumn {
+        display: none;
+    }
+
+    .formColumn {
+        width: 100%;
+    }
+
+    .loginContainer {
+        max-height: fit-content;
+        padding-inline: 20px;
+        padding-block: 20px;
+    }
+}

@@ -1,0 +1,123 @@
+.searchBar {
+  position: relative;
+}
+
+.searchBar.mobileSearchBar {
+  display: none;
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  background-color: #fff;
+  padding-inline-end: 6px;
+  padding-block-end: 5px;
+  z-index: 9999;
+}
+
+.searchBar.activeSearchBar.mobileSearchBar {
+  display: flex;
+}
+
+.searchInput {
+  display: flex;
+  width: fit-content;
+  padding-block: 4px;
+  padding-inline: 15px;
+  border: 1px solid #156284;
+  border-radius: 100px;
+}
+
+.mobileSearchBar .searchInput {
+  width: 100%;
+}
+
+.mobileSearchBar .searchInput input {
+  width: 100% !important;
+}
+
+.searchIcon,
+.clearSearchIcon {
+  display: flex;
+  align-items: center;
+}
+
+.clearSearchIcon {
+  opacity: 0;
+}
+
+.clearSearchIcon.activeClearSearchIcon {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.searchIcon svg,
+.clearSearchIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.searchIcon svg {
+  color: #156284;
+}
+
+.clearSearchIcon svg {
+  color: #cccccc;
+}
+
+.searchInput input {
+  width: 128px;
+  transition: 0.3s width ease-in-out;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  color: gray;
+}
+
+.activeSearchBar .searchInput input {
+  width: 326px;
+  color: #072531;
+}
+
+.searchResults {
+  display: none;
+  position: absolute;
+  top: 115%;
+  width: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #fff;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 8px;
+}
+
+.mobileSearchBar .searchResults {
+  display: block;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  top: 100%;
+  max-height: calc(100vh - 52px);
+  min-height: calc(100vh - 52px);
+  box-shadow: none;
+  z-index: 9999;
+}
+
+.searchResults.activeSearchResults {
+  display: block;
+  cursor: pointer;
+}
+
+.mobileSearchBarIcon,
+.mobileCloseSearchBarIcon {
+  border: none !important;
+  outline: none;
+  background-color: transparent;
+  color: #9B9B9B;
+}
+
+.mobileSearchBarIcon {
+  top: 15px;
+  position: absolute;
+  right: 50px;
+}

@@ -1,0 +1,148 @@
+.formContainer {
+    display: flex;
+    gap: 24px;
+    padding: 4px;
+    margin: 10px;
+    justify-content: space-between;
+}
+
+.modalTitle h5 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.imageInputContainer {
+    width: 58%;
+}
+
+.selectedImages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    height: 380px;
+    align-content: flex-start;
+    width: 43%;
+}
+
+.imageSpot {
+    position: relative;
+    height: 120px;
+    width: 120px;
+    background-color: rgba(242, 242, 242, 1);
+    border-radius: 8px;
+    overflow: hidden;
+    user-select: none;
+}
+
+.withImage {
+    background-color: transparent;
+}
+
+.withImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.withImage svg {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.addPhotoIcon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    background-color: #156284;
+}
+
+.inputMainText {
+    font-size: 18px;
+    color: #777777;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.inputLinkText {
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    text-decoration-line: underline;
+    color: #1D6D8B;
+    text-align: center;
+}
+
+.disabledInput {
+    color: #CCCCCC;
+    border-color: #CCCCCC !important;
+    cursor: not-allowed !important;
+}
+
+.supportText {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #777777;
+}
+
+.cameraInput {
+    display: none !important;
+}
+
+@media only screen and (max-width: 991px) {
+    .formContainer {
+        flex-direction: column;
+    }
+
+    .imageInputContainer {
+        width: 100%;
+        padding: 50px;
+    }
+
+    .selectedImages {
+        width: 100%;
+        gap: 10px;
+        height: auto;
+    }
+
+    .imageSpot {
+        width: 90px;
+        height: 90px;
+    }
+
+    .inputMainText {
+        font-size: 16px;
+    }
+
+    .inputLinkText {
+        font-size: 16px;
+    }
+
+    .supportText {
+        font-size: 12px;
+    }
+
+    .saveButton {
+        margin-inline-start: auto;
+    }
+
+    .cameraInput {
+        display: grid !important;
+    }
+
+    .imageInputContainer,
+    .cameraInput {
+        padding-block: 15px !important;
+    }
+
+    .imageInputContainer svg,
+    .cameraInput svg {
+        width: 70px;
+        height: 70px;
+    }
+}
