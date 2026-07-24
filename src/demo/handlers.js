@@ -39,6 +39,19 @@ import { store } from "./store";
 
 const ok = (data) => data;
 
+// Anotações de gráfico (ModelChart/SpecChart) — guardadas na store de sessão
+// e embutidas na resposta de plotchart/spectrumtendencyplotchart, exatamente
+// como o front-end espera (res.data.annotations). É proposital que só vivam
+// em memória (store.js reseta no F5/reload): o usuário pode anotar à vontade
+// durante a demo sem que isso pareça persistido de verdade num backend real.
+function getSpotAnnotationsForChart(spotId, startMs, endMs) {
+  const spot = store.getSpot(spotId) || {};
+  const annotations = spot.annotations || [];
+  return annotations.filter(
+    (a) => a.timestamp * 1000 >= startMs && a.timestamp * 1000 <= endMs
+  );
+}
+
 // -----------------------------------------------------------------------------
 // Handlers por NOME de endpoint (rotas estáticas)
 // -----------------------------------------------------------------------------
@@ -276,8 +289,65 @@ const STATIC = {
   },
 
   readbearingdata: () => ok({ total: 0, data: [] }),
-  readrmstempannotation: () => ok([]),
-  updatermstempannotation: () => ok({ success: true }),
+
+  // Anotações de gráfico (ModelChart) — guardadas apenas na store de sessão
+  // (memória, reseta no F5/reload — ver store.js). É proposital: o usuário
+  // pode anotar o gráfico à vontade durante a demo, mas nada disso deve
+  // parecer persistido de verdade num backend real.
+  readrmstempannotation: (body) => {
+    const spotId = body && body.spot_id;
+    if (!spotId) return ok([]);
+    const spot = store.getSpot(spotId) || {};
+    const annotations = spot.annotations || [];
+    const { start_date, end_date } = body;
+    const filtered = (start_date != null && end_date != null)
+      ? annotations.filter((a) => a.timestamp >= start_date && a.timestamp <= end_date)
+      : annotations;
+    return ok(structuredCloneSafe(filtered));
+  },
+
+  updatermstempannotation: (body) => {
+    const spotId = body && body.spot_id;
+    if (!spotId) return ok({ success: true });
+    const spot = store.getSpot(spotId) || {};
+    const annotations = spot.annotations || [];
+
+    if (body.action === "new") {
+      const newAnnotation = {
+        spot_annotation_id: `annot-${spotId}-${Date.now()}`,
+        title: body.title,
+        timestamp: body.timestamp,
+        description: body.description || "",
+      };
+      store.setSpot(spotId, { annotations: [...annotations, newAnnotation] });
+      return ok({ success: true, spot_annotation_id: newAnnotation.spot_annotation_id });
+    }
+
+    if (body.action === "update") {
+      const updated = annotations.map((a) =>
+        String(a.spot_annotation_id) === String(body.spot_annotation_id)
+          ? {
+              ...a,
+              title: body.title ?? a.title,
+              description: body.description ?? a.description,
+              timestamp: body.timestamp ?? a.timestamp,
+            }
+          : a
+      );
+      store.setSpot(spotId, { annotations: updated });
+      return ok({ success: true });
+    }
+
+    if (body.action === "delete") {
+      const remaining = annotations.filter(
+        (a) => String(a.spot_annotation_id) !== String(body.spot_annotation_id)
+      );
+      store.setSpot(spotId, { annotations: remaining });
+      return ok({ success: true });
+    }
+
+    return ok({ success: true });
+  },
 
   // updatespotinfo — persiste no store indexado por spot_id
   updatespotinfo: (body) => {
@@ -465,7 +535,7 @@ const STATIC = {
         { axis: "HORIZONTAL", data: makeSeries(0.85) },
         { axis: "AXIAL",      data: makeSeries(0.60) },
       ],
-      anomalies: [], annotations: [], chart_config: {},
+      anomalies: [], annotations: getSpotAnnotationsForChart(spotId, startMs, endMs), chart_config: {},
       alarm_alert: 3.5, alarm_critical: 7.1, disable_alarm: severity == null,
     });
   },
@@ -533,7 +603,7 @@ const STATIC = {
     const alertVel = 3.5, critVel = 7.1, alertAcel = 0.5, critAcel = 1.2, alertTemp = 65, critTemp = 80;
     return ok({
       chart_name: name, unit, data,
-      anomalies: [], annotations: [],
+      anomalies: [], annotations: getSpotAnnotationsForChart(spotId, startMs, endMs),
       alarm_alert:    isTemp ? alertTemp : isAcel ? alertAcel : alertVel,
       alarm_critical: isTemp ? critTemp  : isAcel ? critAcel  : critVel,
       disable_alarm: severity == null,
