@@ -648,7 +648,60 @@ const STATIC = {
   updateassociatedsensor: () => ok({ success: true }),
   // readhistoric → SpotHistoricTable faz: if (!!res.data.data) setSpotHistoric(res.data.data)
   // precisa de { data: [] } — antes era [] e res.data.data seria undefined
-  readhistoric: () => ok({ data: [] }),
+  // Eventos gerados dentro de [start_date, end_date] (ambos em segundos, vindos
+  // do PUT), espalhados pelos gráficos do ponto. EVENT/ICON (SpotHistoricTable.jsx):
+  //   FLAG_CHANGE → mudança de cor de alarme (value: GREEN/YELLOW/RED)
+  //   UPDATE_A1/UPDATE_A2 → alteração dos níveis de alarme manuais (value numérico)
+  //   DISABLE → coleta habilitada/desabilitada (value: TRUE/FALSE)
+  readhistoric: (body) => {
+    const spotId = body && body.spot_id;
+    const startDate = body && body.start_date;
+    const endDate = body && body.end_date;
+    if (!spotId || !startDate || !endDate || endDate <= startDate) return ok({ data: [] });
+
+    const tree = store.getSpot("__tree__") ? store.getSpot("__tree__").flatTree : FLAT_TREE;
+    const sensorType = getSpotSensorType(tree, spotId);
+
+    const charts =
+      sensorType === "TEMP_ONLY"
+        ? [{ chart_name: "TEMPERATURA", isTemp: true }]
+        : sensorType === "INTEGRATED"
+        ? [{ chart_name: "VELOCIDADE", isTemp: false }]
+        : [
+            { chart_name: "VELOCIDADE", isTemp: false },
+            { chart_name: "ACELERAÇÃO", isTemp: false },
+            { chart_name: "TEMPERATURA", isTemp: true },
+          ];
+
+    const seed = Number(spotId) || 1;
+    const eventCount = 8;
+    const span = endDate - startDate;
+    const events = [];
+    for (let i = 0; i < eventCount; i++) {
+      const chart = charts[(i + seed) % charts.length];
+      const t = startDate + Math.floor((span * (i + 1)) / (eventCount + 1));
+      const alarmBase = chart.isTemp ? 65 : 3.5;
+      const criticalBase = chart.isTemp ? 80 : 7.1;
+      const kind = (i + seed) % 4;
+      let event, value;
+      if (kind === 0) {
+        event = "FLAG_CHANGE";
+        value = ["GREEN", "YELLOW", "RED"][(i + seed) % 3];
+      } else if (kind === 1) {
+        event = "UPDATE_A1";
+        value = (alarmBase + (i % 3) * 0.1).toFixed(2);
+      } else if (kind === 2) {
+        event = "UPDATE_A2";
+        value = (criticalBase + (i % 3) * 0.1).toFixed(2);
+      } else {
+        event = "DISABLE";
+        value = i % 2 === 0 ? "FALSE" : "TRUE";
+      }
+      events.push({ timestamp: t * 1000, chart_name: chart.chart_name, event, value });
+    }
+    events.sort((a, b) => b.timestamp - a.timestamp);
+    return ok({ data: events });
+  },
   // updateassetstree — persiste a árvore editada no store.
   // IDs do FLAT_TREE são NUMÉRICOS → Number(parentNode.id) preserva o valor → parent chega correto no JSON.
   // Com IDs string, NaN→null destruía a hierarquia no transporte.
