@@ -39,6 +39,35 @@ import { store } from "./store";
 
 const ok = (data) => data;
 
+// machine_type é índice de MACHINE_TYPES_OPTIONS (useSettingsView.jsx):
+// 1=Motor Elétrico, 2=Bomba Centrífuga, 3=Ventilador/Exaustor, 4=Turbina a Vapor,
+// 5=Redutor, 6=Gerador, 7=Rotores em Geral, 8=Outros
+// fixation_type_id: FIXATION_OPTIONS = [Selecione, Rígida, Flexível] → 1 ou 2
+// transmission_type_id: TRANSMISSION = [Selecione, Polia, Cardã, Integrada, Acoplamento] → 1-4
+// Parâmetros por ponto — rotação e tipo de máquina específicos. Usado tanto por
+// readspotinfo quanto por /spot/:id/machine_info — precisam bater, senão a tela
+// de Configuração (que lê machine_info) diverge da Ficha técnica (readspotinfo).
+const SPOT_PARAMS = {
+  131: { rotation_speed: 1470, power: 75,  machine_type: 1, bearing_model: "6312",  bpfi: 5.4, bpfo: 3.6, bsf: 2.3, ftf: 0.38, fixation_type_id: 1, transmission_type_id: 4 }, // Motor LA — acoplado direto, base rígida — crítico
+  132: { rotation_speed: 1470, power: 75,  machine_type: 1, bearing_model: "6312",  bpfi: 5.4, bpfo: 3.6, bsf: 2.3, ftf: 0.38, fixation_type_id: 1, transmission_type_id: 4 }, // Motor LOA — alerta
+  133: { rotation_speed: 960,  power: 45,  machine_type: 3, bearing_model: "6309",  bpfi: 4.9, bpfo: 3.1, bsf: 2.1, ftf: 0.35, fixation_type_id: 2, transmission_type_id: 1 }, // Ventilador — mancal flexível, acionado por polia
+  // "Acionamento • Redutor" — o nome do ponto diz Redutor; estava com
+  // machine_type=1 (Motor), incoerente com o próprio nome. Corrigido para
+  // 5=Redutor. Ponto de sensor no eixo de entrada (alta rotação, 1470rpm).
+  134: { rotation_speed: 1470, power: 75,  machine_type: 5, bearing_model: "NU314", bpfi: 6.2, bpfo: 4.8, bsf: 2.9, ftf: 0.41, fixation_type_id: 1, transmission_type_id: 3 }, // Acionamento Redutor — transmissão integrada — alerta
+  135: { rotation_speed:  320, power: 30,  machine_type: 7, bearing_model: "22216", bpfi: 7.1, bpfo: 5.9, bsf: 3.4, ftf: 0.43, fixation_type_id: 1, transmission_type_id: 4 }, // Tambor de Retorno — rotor acoplado
+  136: { rotation_speed: 1760, power: 110, machine_type: 1, bearing_model: "6314",  bpfi: 5.2, bpfo: 3.8, bsf: 2.4, ftf: 0.37, fixation_type_id: 1, transmission_type_id: 4 }, // Prensagem Motor LA
+  137: { rotation_speed:  147, power: 110, machine_type: 5, bearing_model: "NU315", bpfi: 6.8, bpfo: 5.2, bsf: 3.1, ftf: 0.40, fixation_type_id: 1, transmission_type_id: 3 }, // Redutor Saída — integrado à linha
+  138: { rotation_speed: 1760, power: 55,  machine_type: 1, bearing_model: "6311",  bpfi: 5.0, bpfo: 3.4, bsf: 2.2, ftf: 0.36, fixation_type_id: 1, transmission_type_id: 4 }, // Bomba Óleo — gray
+  139: { rotation_speed: 1760, power: 55,  machine_type: 1, bearing_model: "6311",  bpfi: 5.0, bpfo: 3.4, bsf: 2.2, ftf: 0.36, fixation_type_id: 1, transmission_type_id: 4 }, // Mancal Dianteiro (TEMP_ONLY) — mesma bomba de 138
+  140: { rotation_speed: 1760, power: 110, machine_type: 2, bearing_model: null,    bpfi: 0,   bpfo: 0,   bsf: 0,   ftf: 0,    fixation_type_id: 1, transmission_type_id: 4 }, // Selo Mecânico (INTEGRATED) — eixo de bomba, dado bruto via API, sem detalhamento de rolamento
+  231: { rotation_speed:  490, power: 315, machine_type: 1, bearing_model: "6318",  bpfi: 5.6, bpfo: 4.4, bsf: 2.6, ftf: 0.39, fixation_type_id: 1, transmission_type_id: 4 }, // Terno Moagem — alerta
+  232: { rotation_speed:   49, power: 315, machine_type: 5, bearing_model: "23124", bpfi: 7.8, bpfo: 6.2, bsf: 3.6, ftf: 0.44, fixation_type_id: 1, transmission_type_id: 3 }, // Redutor Planetário
+  233: { rotation_speed: 1760, power: 55,  machine_type: 1, bearing_model: "6312",  bpfi: 5.4, bpfo: 3.6, bsf: 2.3, ftf: 0.38, fixation_type_id: 1, transmission_type_id: 4 }, // Bomba de Caldo Motor
+  331: { rotation_speed: 1460, power: 22,  machine_type: 1, bearing_model: "6308",  bpfi: 4.7, bpfo: 3.3, bsf: 2.0, ftf: 0.34, fixation_type_id: 1, transmission_type_id: 4 }, // Envasadora Motor
+};
+const DEFAULT_SPOT_PARAMS = { rotation_speed: 1470, power: 75, machine_type: 1, bearing_model: "6312", bpfi: 5.4, bpfo: 3.6, bsf: 2.3, ftf: 0.38, fixation_type_id: 1, transmission_type_id: 4 };
+
 // Anotações de gráfico (ModelChart/SpecChart) — guardadas na store de sessão
 // e embutidas na resposta de plotchart/spectrumtendencyplotchart, exatamente
 // como o front-end espera (res.data.annotations). É proposital que só vivam
@@ -198,32 +227,7 @@ const STATIC = {
     const node = spotId ? tree.find(n => n.id == spotId) : null;
     const alarm = node ? node.alarmLabel : "GREEN";
 
-    // machine_type é índice de MACHINE_TYPES_OPTIONS (useSettingsView.jsx):
-    // 1=Motor Elétrico, 2=Bomba Centrífuga, 3=Ventilador/Exaustor, 4=Turbina a Vapor,
-    // 5=Redutor, 6=Gerador, 7=Rotores em Geral, 8=Outros
-    // fixation_type_id: FIXATION_OPTIONS = [Selecione, Rígida, Flexível] → 1 ou 2
-    // transmission_type_id: TRANSMISSION = [Selecione, Polia, Cardã, Integrada, Acoplamento] → 1-4
-    // Parâmetros por ponto — rotação e tipo de máquina específicos
-    const SPOT_PARAMS = {
-      131: { rotation_speed: 1470, power: 75,  machine_type: 1, bearing_model: "6312",  bpfi: 5.4, bpfo: 3.6, bsf: 2.3, ftf: 0.38, fixation_type_id: 1, transmission_type_id: 4 }, // Motor LA — acoplado direto, base rígida — crítico
-      132: { rotation_speed: 1470, power: 75,  machine_type: 1, bearing_model: "6312",  bpfi: 5.4, bpfo: 3.6, bsf: 2.3, ftf: 0.38, fixation_type_id: 1, transmission_type_id: 4 }, // Motor LOA — alerta
-      133: { rotation_speed: 960,  power: 45,  machine_type: 3, bearing_model: "6309",  bpfi: 4.9, bpfo: 3.1, bsf: 2.1, ftf: 0.35, fixation_type_id: 2, transmission_type_id: 1 }, // Ventilador — mancal flexível, acionado por polia
-      // "Acionamento • Redutor" — o nome do ponto diz Redutor; estava com
-      // machine_type=1 (Motor), incoerente com o próprio nome. Corrigido para
-      // 5=Redutor. Ponto de sensor no eixo de entrada (alta rotação, 1470rpm).
-      134: { rotation_speed: 1470, power: 75,  machine_type: 5, bearing_model: "NU314", bpfi: 6.2, bpfo: 4.8, bsf: 2.9, ftf: 0.41, fixation_type_id: 1, transmission_type_id: 3 }, // Acionamento Redutor — transmissão integrada — alerta
-      135: { rotation_speed:  320, power: 30,  machine_type: 7, bearing_model: "22216", bpfi: 7.1, bpfo: 5.9, bsf: 3.4, ftf: 0.43, fixation_type_id: 1, transmission_type_id: 4 }, // Tambor de Retorno — rotor acoplado
-      136: { rotation_speed: 1760, power: 110, machine_type: 1, bearing_model: "6314",  bpfi: 5.2, bpfo: 3.8, bsf: 2.4, ftf: 0.37, fixation_type_id: 1, transmission_type_id: 4 }, // Prensagem Motor LA
-      137: { rotation_speed:  147, power: 110, machine_type: 5, bearing_model: "NU315", bpfi: 6.8, bpfo: 5.2, bsf: 3.1, ftf: 0.40, fixation_type_id: 1, transmission_type_id: 3 }, // Redutor Saída — integrado à linha
-      138: { rotation_speed: 1760, power: 55,  machine_type: 1, bearing_model: "6311",  bpfi: 5.0, bpfo: 3.4, bsf: 2.2, ftf: 0.36, fixation_type_id: 1, transmission_type_id: 4 }, // Bomba Óleo — gray
-      139: { rotation_speed: 1760, power: 55,  machine_type: 1, bearing_model: "6311",  bpfi: 5.0, bpfo: 3.4, bsf: 2.2, ftf: 0.36, fixation_type_id: 1, transmission_type_id: 4 }, // Mancal Dianteiro (TEMP_ONLY) — mesma bomba de 138
-      140: { rotation_speed: 1760, power: 110, machine_type: 2, bearing_model: null,    bpfi: 0,   bpfo: 0,   bsf: 0,   ftf: 0,    fixation_type_id: 1, transmission_type_id: 4 }, // Selo Mecânico (INTEGRATED) — eixo de bomba, dado bruto via API, sem detalhamento de rolamento
-      231: { rotation_speed:  490, power: 315, machine_type: 1, bearing_model: "6318",  bpfi: 5.6, bpfo: 4.4, bsf: 2.6, ftf: 0.39, fixation_type_id: 1, transmission_type_id: 4 }, // Terno Moagem — alerta
-      232: { rotation_speed:   49, power: 315, machine_type: 5, bearing_model: "23124", bpfi: 7.8, bpfo: 6.2, bsf: 3.6, ftf: 0.44, fixation_type_id: 1, transmission_type_id: 3 }, // Redutor Planetário
-      233: { rotation_speed: 1760, power: 55,  machine_type: 1, bearing_model: "6312",  bpfi: 5.4, bpfo: 3.6, bsf: 2.3, ftf: 0.38, fixation_type_id: 1, transmission_type_id: 4 }, // Bomba de Caldo Motor
-      331: { rotation_speed: 1460, power: 22,  machine_type: 1, bearing_model: "6308",  bpfi: 4.7, bpfo: 3.3, bsf: 2.0, ftf: 0.34, fixation_type_id: 1, transmission_type_id: 4 }, // Envasadora Motor
-    };
-    const sp = SPOT_PARAMS[Number(spotId)] || { rotation_speed: 1470, power: 75, machine_type: 1, bearing_model: "6312", bpfi: 5.4, bpfo: 3.6, bsf: 2.3, ftf: 0.38, fixation_type_id: 1, transmission_type_id: 4 };
+    const sp = SPOT_PARAMS[Number(spotId)] || DEFAULT_SPOT_PARAMS;
 
     // Limites de alarme coerentes com o estado atual
     const velAlert  = alarm === "RED" ? 3.5  : alarm === "YELLOW" ? 3.5  : 3.5;
@@ -991,7 +995,14 @@ const PATTERNS = [
     const spotImages = (override && override.spot_images) || [];
     return ok({ alarm_status: alarm, spot_status: alarm === "RED" ? "CRITICAL" : alarm === "YELLOW" ? "ALERT" : "NORMAL", last_alarmed_time: lastAlarmed, spot_images: spotImages });
   }},
-  { test: /\/spot\/[^/]+\/machine_info$/, handler: (m) => ok({ spot_id: seg(m, 1), machine_type: "MOTOR", power: 75, rotation_speed: 1470, bearing_model: "6312", fixation_type: "RÍGIDA" }) },
+  // /spot/:id/machine_info — getMachineInfo(), consumido por useSettingsView.jsx
+  // (tela "Configuração"). Reaproveita EXATAMENTE o mesmo cálculo de readspotinfo
+  // (mesmo SPOT_PARAMS por spot) — machine_type precisa ser o índice numérico de
+  // MACHINE_TYPES_OPTIONS (1=Motor Elétrico, ...), não uma string como "MOTOR",
+  // senão o dropdown "Tipo de Máquina" cai em "Selecione" mesmo o ponto já tendo
+  // um equipamento definido, e os campos derivados dele (ex.: nº de pás) ficam
+  // "undefined".
+  { test: /\/spot\/[^/]+\/machine_info$/, handler: (m) => STATIC.readspotinfo({ spot_id: seg(m, 1) }) },
   // /spot/:id/automatic_diagnostic — getAutomaticDiagnostic
   // res.data.automatic_diag = true → isAutoEnabled = true → aba Diagnóstico Automático aparece
   { test: /\/spot\/[^/]+\/automatic_diagnostic$/, handler: (m) => {
