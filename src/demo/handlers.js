@@ -781,21 +781,40 @@ const STATIC = {
   // Com IDs string, NaN→null destruía a hierarquia no transporte.
   updateassetstree: (body) => {
     if (body && body.spot_tree && Array.isArray(body.spot_tree)) {
-      // mapa de ID → alarmLabel dos nós originais (para preservar cores)
+      // mapa de ID → alarmLabel/permission dos nós originais (preserva cores e
+      // permissões já existentes — updateAssetsTree.js só envia nós que JÁ têm
+      // CONFIG_ASSETS_TREE, então plantas restritas de propósito na demo, ex.
+      // FLAT_TREE id 301 (permission: []), nem chegam aqui).
+      // ANTES: permission ficava hardcoded como a STRING "OWNER" para TODO
+      // nó da árvore — hasPermission() faz userPermissions.includes(x), que
+      // numa string vira busca de substring, então qualquer checagem de
+      // permissão granular (MANAGE_USERS, CONFIG_SPOTS, ...) passava a falhar
+      // pra árvore INTEIRA assim que o usuário criava/editava qualquer coisa,
+      // não só na planta nova — daí a perda de acesso de admin nas outras
+      // plantas ao criar uma nova.
       const originalAlarms = {};
-      FLAT_TREE.forEach((n) => { originalAlarms[n.id] = n.alarmLabel; });
-      // também preserva alarmes de edições anteriores do store
+      const originalPermissions = {};
+      FLAT_TREE.forEach((n) => { originalAlarms[n.id] = n.alarmLabel; originalPermissions[n.id] = n.permission; });
       const prev = store.getSpot("__tree__");
       if (prev && prev.flatTree) {
         prev.flatTree.forEach((n) => {
           if (!originalAlarms[n.id]) originalAlarms[n.id] = n.alarmLabel;
+          if (!originalPermissions[n.id]) originalPermissions[n.id] = n.permission;
         });
       }
+      // nó novo (ex.: planta recém-criada) — na demo não faz sentido replicar
+      // a restrição real de "aguardando o backend liberar permissões"; dá
+      // acesso total de admin de cara.
+      const FULL_ADMIN_PERMISSIONS = [
+        "CONFIG_ASSETS_TREE", "CONFIG_SPOTS", "CONFIG_ALARMS", "MAKE_ANNOTATIONS",
+        "CONFIG_CHARTS", "CONFIG_MACHINE_INFO", "MANAGE_DIAGNOSTICS",
+        "MANAGE_USERS", "API_ACCESS", "COMPLETE_DIAGNOSTICS",
+      ];
       const flatTree = body.spot_tree.map((node) => ({
         id: node.id,
         type: node.type,
         parent: node.parent,        // numérico ou null — hierarquia preservada com IDs numéricos
-        permission: "OWNER",
+        permission: originalPermissions[node.id] || FULL_ADMIN_PERMISSIONS,
         title: node.name || String(node.id),
         alarmLabel: originalAlarms[node.id] || "GREEN", // preserva cor original; novos ficam GREEN
         sensor_id: node.sensor_id || null,
